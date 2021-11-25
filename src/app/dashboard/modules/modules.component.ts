@@ -11,7 +11,7 @@ import { AddComponent } from '../add/add.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteComponent } from '../delete/delete.component';
 import { AccountCRUDComponent } from '../account-crud/account-crud.component';
-
+ 
 @Component({
   selector: 'app-modules',
   templateUrl: './modules.component.html',

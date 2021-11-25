@@ -1,0 +1,436 @@
+
+<div class="container">
+  <h3 mat-dialog-title>ID: {{data.row.ID}}</h3>
+  <div mat-dialog-actions align="end">
+    <button mat-button type="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1"
+      (click)="saveEdit()">Save</button>
+    <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+  </div>
+</div>
+
+<form [formGroup]="dynamicForm" (ngSubmit)="submit()" #formControl="ngForm">
+
+  <div *ngFor="let f of validateData ">
+    <div [ngSwitch]="f.FIELD_TYPE.NAME">
+      <mat-form-field color="accent" *ngSwitchCase="'text'">
+        <input matInput #input [(ngModel)]="data.row[f.DBNAME]" [formControlName]="f.DBNAME" placeholder="{{f.DISPLAY_NAME}}" class="form-control"
+          name="f.DBNAME" required>
+      </mat-form-field>
+
+
+      <mat-form-field color="accent" *ngSwitchCase="'Selection-Dropdown'">
+        <mat-select class="form-control" [(ngModel)]="data.row[f.DBNAME]" [formControlName]="f.DBNAME" placeholder="{{f.DISPLAY_NAME}}" name="f.DBNAME">
+          <mat-option *ngFor="let type of f.select" [value]="type.id">
+            {{type.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" color="accent" *ngSwitchCase="'Text Area'">
+        <textarea matInput #inputstate [(ngModel)]="data.row[f.DBNAME]" [formControlName]="f.DBNAME" class="form-control"
+          placeholder="{{f.DISPLAY_NAME}}" name="f.DBNAME" rows="4" cols="50"></textarea>
+      </mat-form-field>
+
+      <mat-form-field color="accent" *ngSwitchCase="'Number'">
+        <input matInput #input [formControlName]="f.DBNAME" placeholder="{{f.DISPLAY_NAME}}" 
+        class="form-control" [(ngModel)]="data.row[f.DBNAME]" name="f.DBNAME" required>
+      </mat-form-field>
+
+      <!--<mat-form-field color="accent" *ngSwitchCase="'Relation-Dropdown'">
+        <input matInput #input [(ngModel)]="data.row[f.DBNAME]" [formControlName]="f.DBNAME" placeholder="{{f.DISPLAY_NAME}}" class="form-control"
+          name="f.DBNAME" required>
+      </mat-form-field>-->
+    
+      <mat-form-field color="accent" *ngSwitchCase="'Relation-Search'">
+        <mat-select class="form-control" [formControlName]="f.DBNAME" placeholder="{{f.DISPLAY_NAME}}" name="f.DBNAME">
+          <mat-option *ngFor="let type of f.select" [value]="type.value">
+            {{type.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field color="accent" *ngSwitchCase="'Relation-Dropdown'">
+        <mat-select class="form-control" [(ngModel)]="data.row[f.DBNAME]" [formControlName]="f.DBNAME" placeholder="{{f.DISPLAY_NAME}}" name="f.DBNAME">
+          <mat-option *ngFor="let type of f.select" [value]="type.value">
+            {{type.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field color="accent" *ngSwitchCase="'Number-Decimal'">
+        <input matInput #input [(ngModel)]="data.row[f.DBNAME]" [formControlName]="f.DBNAME" placeholder="{{f.DISPLAY_NAME}}" class="form-control"
+          name="f.DBNAME" required>
+      </mat-form-field>
+
+      <section class="example-section" *ngSwitchCase="'Binary-Check box'">
+        <mat-checkbox #myCheckbox class="example-margin"[(ngModel)]="data.row[f.DBNAME]" [formControlName]="f.DBNAME" >{{f.DISPLAY_NAME}}</mat-checkbox>
+      </section>
+      <mat-form-field color="accent" *ngSwitchCase="'Date'">
+        <input matInput [(ngModel)]="data.row[f.DBNAME]" [formControlName]="f.DBNAME" [matDatepicker]="dp"
+         placeholder= "{{f.DISPLAY_NAME}}" >
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp></mat-datepicker>
+       
+      </mat-form-field>
+
+      <div *ngSwitchCase="'Binary-Radio'" color="accent">
+        <label id="example-radio-group-label">{{f.DISPLAY_NAME}}</label>
+        <mat-radio-group   type="radio"
+        [name]="f.DBNAME"
+        [formControlName]="f.DBNAME"
+        [(ngModel)]="data.row[f.DBNAME]"
+          class="example-radio-group">
+          <mat-radio-button class="example-radio-button"*ngFor="let activee of active_" [value]="activee.id">
+            {{activee.value}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+<!--
+
+<div class="container">
+  <h3 mat-dialog-title>ID: {{data.row.ID}}</h3>
+  <div mat-dialog-actions align="end">
+    <button mat-button type="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1"
+      (click)="saveEdit()">Save</button>
+    <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+  </div>
+</div>
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+
+    <h3 mat-dialog-title>Account Information</h3>
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="Id" [(ngModel)]="data.row.ID" name="ID" required
+        disabled>
+
+    </mat-form-field>
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{ACCOUNT_NUMBER}}" [(ngModel)]="data.row.ACCOUNT_NUMBER"
+        name="ACCOUNT_NUMBER" required>
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{ACCOUNT_NAME}}" [(ngModel)]="data.row.ACC_NAME"
+        name="ACC_NAME" required>
+
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{COMPANY_NAME}}" [(ngModel)]="data.row.COMPANY_NAME"
+        name="COMPANY_NAME" required>
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field color="accent">
+      <mat-select class="form-control" placeholder="{{ACCOUNT_STATUS}}" [(ngModel)]="data.row.STATUS" name="TYPE">
+        <mat-option *ngFor="let status of status_" [value]="status.id">
+          {{status.value}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{PARENT_ACCOUNT}}" [(ngModel)]="data.row.PARENT_ACC"
+        name="PARENT_ACC">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field color="accent">
+      <mat-select class="form-control" placeholder="{{ACCOUNT_TYPE}}" [(ngModel)]="data.row.TypeselectedValue"
+        name="TYPE">
+        <mat-option *ngFor="let type of types" [value]="type.id">
+          {{type.value}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    
+
+    <mat-form-field color="accent">
+      <mat-select class="form-control" placeholder="{{ACCOUNT_INDUSTRY}}" [(ngModel)]="data.row.INDUSTRYselectedValue"
+        name="INDUSTRY">
+        <mat-option *ngFor="let industry of industrys " [value]="industry.id">
+          {{industry.value}}
+        </mat-option>
+
+      </mat-select>
+
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+   
+    <mat-form-field color="accent">
+
+      <mat-select class="form-control" placeholder="{{ACCOUNT_CATEGORY}}" [(ngModel)]="data.row.CATEGORYselectedValue"
+        name="ACC_CATEGORY">
+        <mat-option *ngFor="let category of categorys" [value]="category.id">
+          {{category.value}}
+
+        </mat-option>
+
+      </mat-select>
+
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
+    </mat-form-field>
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{ACCOUNT_PHONE}}" [(ngModel)]="data.row.PHONE"
+        name="PHONE">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{ACCOUNT_FAX}}" [(ngModel)]="data.row.FAX" name="FAX">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field color="accent">
+      <input matInput #input type="email" [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+        class="form-control" placeholder="{{ACCOUNT_EMAIL}}" [(ngModel)]="data.row.EMAIL" name="EMAIL">
+      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+
+    </mat-form-field>
+
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{ACCOUNT_WEBSITE}}" [(ngModel)]="data.row.WEBSITE"
+        name="WEBSITE">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+
+  
+
+    <mat-form-field color="accent">
+
+      <mat-select class="form-control" placeholder="{{ACCOUNT_OWNERSHIP}}" [(ngModel)]="data.row.OwnershipselectedValue"
+        name="OWNERSHIP">
+        <mat-option *ngFor="let ownership of ownerships" [value]="ownership.id">
+          {{ownership.value}}
+
+        </mat-option>
+
+      </mat-select>
+
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
+    </mat-form-field>
+
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{PAN}}" [(ngModel)]="data.row.PAN" name="PAN">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{GSTIN}}" [(ngModel)]="data.row.GSTIN" name="GSTIN">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+    <h3 mat-dialog-title>Address Information</h3>
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{BILLING_ADDRESS}}" [(ngModel)]="data.row.BILLING_ADRES"
+        name="BILLING_ADRES">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+
+   
+    <mat-form-field color="accent">
+
+
+      <input type="text" class="form-control" placeholder="{{BILLING_COUNTRY}}"
+        [(ngModel)]="data.row.CountryselectedValue" name="BILLING_COUNTRY" aria-label="Number" matInput
+        [formControl]="BmyControl" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let country of Bcountrys | async" [value]="country">
+          {{country}}
+
+        </mat-option>
+      </mat-autocomplete>
+
+
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
+    </mat-form-field>
+
+
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{BILLING_STATE}}" [(ngModel)]="data.row.BILLING_STATE"
+        name="BILLING_STATE">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{BILLING_CITY}}" [(ngModel)]="data.row.BILLING_CITY"
+        name="BILLING_CITY">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{BILLING_ZIP}}" [(ngModel)]="data.row.BILLING_ZIP"
+        name="BILLING_ZIP">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{SHIPPING_ADDRESS}}"
+        [(ngModel)]="data.row.SHIPPING_ADRES" name="SHIPPING_ADRES">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+
+    
+    <mat-form-field color="accent">
+
+      <input type="text" #input class="form-control" placeholder="{{SHIPPING_COUNTRY}}"
+        [(ngModel)]="data.row.SHippingCountryselectedValue" name="SHIPPING_COUNTRY" [formControl]="SmyControl" matInput
+        [matAutocomplete]="autoo">
+      <mat-autocomplete autoActiveFirstOption #autoo="matAutocomplete">
+        <mat-option *ngFor="let countrys of Scountrys | async" [value]="countrys">
+          {{countrys}}
+
+        </mat-option>
+      </mat-autocomplete>
+
+
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
+    </mat-form-field>
+
+
+
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{SHIPPING_STATE}}" [(ngModel)]="data.row.SHIPPING_STATE"
+        name="SHIPPING_STATE">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{SHIPPING_CITY}}" [(ngModel)]="data.row.SHIPPING_CITY"
+        name="SHIPPING_CITY">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field color="accent">
+      <input matInput #input class="form-control" placeholder="{{SHIPPING_ZIP}}" [(ngModel)]="data.row.SHIPPING_ZIP"
+        name="SHIPPING_ZIP">
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+
+    <h3 mat-dialog-title>Additional Information</h3>
+  
+    <mat-form-field color="accent">
+
+      <mat-select class="form-control" placeholder="{{CUSTOMER_PRIORITY}}"
+        [(ngModel)]="data.row.cus_priorityselectedValue" name="CUSTOMER_PRTY">
+        <mat-option *ngFor="let cus_priority of cus_prioritys" [value]="cus_priority.id">
+          {{cus_priority.value}}
+
+        </mat-option>
+
+      </mat-select>
+
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
+    </mat-form-field>
+
+
+   
+    <mat-form-field color="accent">
+
+      <mat-select class="form-control" placeholder="{{UPSELL_OPPORTUNITY}}" [(ngModel)]="data.row.upsell_selectedValue"
+        name="UPSELL_OPPORTUNITY">
+        <mat-option *ngFor="let upselll of upsell_" [value]="upselll.id">
+          {{upselll.value}}
+
+        </mat-option>
+
+      </mat-select>
+
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
+    </mat-form-field>
+
+
+    
+    <mat-form-field color="accent">
+
+      <mat-select class="form-control" placeholder="{{ACTIVE}}" [(ngModel)]="data.row.active_selectedValue"
+        name="ACTIVE">
+        <mat-option *ngFor="let activee of active_" [value]="activee.id">
+          {{activee.value}}
+
+        </mat-option>
+
+      </mat-select>
+
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
+    </mat-form-field>
+
+
+    <h3 mat-dialog-title>Description Information</h3>
+
+    <mat-form-field color="accent">
+      <textarea matInput #input class="form-control" placeholder="{{DESCRIPTION}}" [(ngModel)]="data.row.DESCRIPTION"
+        name="DESCRIPTION"></textarea>
+      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    
+  </form>-->

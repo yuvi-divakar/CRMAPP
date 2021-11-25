@@ -1,0 +1,116 @@
+mat-card {
+  max-width: 600px;
+  margin: 2em auto;
+  text-align: center;
+  max-height: 600px;
+}
+
+.header{
+  text-align: center;
+
+}
+.full-width {
+  width: 80%;
+}
+
+.button-row {
+  padding-top: 5px;
+}
+
+.button-row a {
+  margin-right: 8px;
+  text-align: center;
+}
+
+.forget-password{
+  padding-left: 0px;
+}
+
+.emailInput{
+  padding-top: 10px;
+}
+
+
+
+.aLink{
+  float: right;
+  padding-right: 60px;
+  text-decoration: none;
+}
+.spacer{
+  flex: 1 1 auto;
+}
+
+.mat-toolbar a {
+display: inline-block;
+margin: 0 10px;
+color: white;
+text-decoration: none;
+}
+.contentBody {
+  padding: 60px 1rem;
+  background :#0865df;
+  display: block;
+}
+.flexExpand  {
+  // This fills the remaining space, by using flexbox.
+  // Every toolbar row uses a flexbox row layout.
+  flex: 1 1 auto;
+}
+.red-container {
+  background-color: #04377a;
+}
+.mat-sidenav a {
+ 
+  color: white;
+ 
+  }
+
+
+
+  .btn-primary {
+    color: #f3f5f7;
+    background-color: #e40d0d;
+    border-color: #e40d0d;
+}
+.btn-info {
+    color: rgb(248, 242, 242);
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+}
+a+a {
+    margin-left: 5px;
+  }
+  table  {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-width: 500px;
+}
+th.mat-header-cell {
+    text-align: left;
+    max-width: 300px;
+}
+.mat-header-cell {
+    background: var(--background-color,rgb(152, 158, 179))
+}
+
+#button {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: right;
+  margin-right: 5px;
+}
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+th,
+td {
+  overflow: hidden;
+  width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

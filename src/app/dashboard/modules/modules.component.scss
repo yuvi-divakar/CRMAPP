@@ -1,0 +1,84 @@
+.btn-primary {
+    color: #f3f5f7;
+    background-color: #e40d0d;
+    border-color: #e40d0d;
+}
+.btn-info {
+    color: rgb(248, 242, 242);
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+}
+a+a {
+    margin-left: 5px;
+  }
+  table  {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-width: 500px;
+}
+th.mat-header-cell {
+    text-align: left;
+    max-width: 300px;
+}
+.mat-header-cell {
+    background: var(--background-color,rgb(152, 158, 179))
+}
+
+
+  #button {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: right;
+    margin-right: 5px;
+  }
+  .mat-dialog-title {
+    color:  rgb(75, 11, 224);;
+} 
+.toppings {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 10px;
+  margin-right:0px;
+}
+.mat-form-field-infix {
+  display: block;
+  position: relative;
+  flex: auto;
+  min-width: 0px;
+  width: 228px;
+}
+th,
+td {
+  overflow: hidden;
+  width: 300px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.header{
+  text-align: center;
+
+}
+
+.mat-table {
+  overflow-x: scroll;
+  max-width: 99%;
+}
+
+.mat-cell,
+.mat-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 10px;
+  line-break: unset;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.mat-row,
+.mat-header-row {
+  display: table-row;
+}
